@@ -126,6 +126,15 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
+      {/* Header Section */}
+      <div className="dashboard-header">
+        <div className="header-content">
+          <h1 className="dashboard-title">Hi there! 👋</h1>
+          <p className="dashboard-subtitle">
+            Your learning progress is looking great. Keep up the momentum!
+          </p>
+        </div>
+      </div>
       {/* Quick Actions */}
       <div className="quick-actions">
         <button
