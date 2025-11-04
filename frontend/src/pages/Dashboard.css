@@ -46,6 +46,60 @@ html {
   font-weight: 400;
 }
 
+/* Quick Action Buttons */
+.quick-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.quick-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.quick-action-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.quick-action-btn:active {
+  transform: translateY(-2px);
+}
+
+.quick-action-btn.chat-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.quick-action-btn.chat-btn:hover {
+  background: linear-gradient(135deg, #7a8ff1 0%, #8a5cb3 100%);
+}
+
+.quick-action-btn.quiz-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.quick-action-btn.quiz-btn:hover {
+  background: linear-gradient(135deg, #f2a3fc 0%, #f6687d 100%);
+}
+
+.action-icon {
+  width: 20px;
+  height: 20px;
+}
+
 /* Stats Grid */
 .stats-grid {
   display: grid;
@@ -550,6 +604,22 @@ html {
     font-size: 14px;
   }
 
+  .quick-actions {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .quick-action-btn {
+    padding: 14px 16px;
+    font-size: 14px;
+    gap: 10px;
+  }
+
+  .action-icon {
+    width: 18px;
+    height: 18px;
+  }
+
   .stats-grid {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -727,5 +797,21 @@ html {
   .score-badge {
     font-size: 12px;
     padding: 4px 8px;
+  }
+
+  .quick-actions {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .quick-action-btn {
+    padding: 12px 12px;
+    font-size: 13px;
+    gap: 8px;
+  }
+
+  .action-icon {
+    width: 16px;
+    height: 16px;
   }
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { apiCall } from "../services/api";
+import Navigation from "../components/Navigation";
 import {
   LineChart,
   Line,
@@ -22,12 +23,15 @@ import {
   BookOpen,
   ChevronRight,
   Loader2,
+  MessageSquare,
+  Zap,
 } from "lucide-react";
 import "./Dashboard.css";
 
 const Dashboard = () => {
   const [searchParams] = useSearchParams();
   const studentId = searchParams.get("student_id") || "S001";
+  const navigate = useNavigate();
 
   const [stats, setStats] = useState(null);
   const [goals, setGoals] = useState(null);
@@ -122,14 +126,22 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-      {/* Header Section */}
-      <div className="dashboard-header">
-        <div className="header-content">
-          <h1 className="dashboard-title">Hi there! 👋</h1>
-          <p className="dashboard-subtitle">
-            Your learning progress is looking great. Keep up the momentum!
-          </p>
-        </div>
+      {/* Quick Actions */}
+      <div className="quick-actions">
+        <button
+          className="quick-action-btn chat-btn"
+          onClick={() => navigate(`/chat?student_id=${studentId}`)}
+        >
+          <MessageSquare className="action-icon" />
+          <span>Start Chat</span>
+        </button>
+        <button
+          className="quick-action-btn quiz-btn"
+          onClick={() => navigate(`/quiz/General?student_id=${studentId}`)}
+        >
+          <Zap className="action-icon" />
+          <span>Take a Quiz</span>
+        </button>
       </div>
 
       {/* Stats Cards */}
@@ -344,7 +356,16 @@ const GoalCard = ({ goal }) => {
           <Clock className="clock-icon" />
           {goal.days_remaining} days remaining
         </p>
-        <button className="continue-button">
+        <button
+          className="continue-button"
+          onClick={() =>
+            navigate(
+              `/chat?student_id=${goal.student_id || studentId}&subject=${
+                goal.subject
+              }`
+            )
+          }
+        >
           Continue Learning
           <ChevronRight className="button-icon" />
         </button>
