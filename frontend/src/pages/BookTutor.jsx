@@ -98,7 +98,7 @@ export default function BookTutor() {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center px-4">
+      <div className="h-full bg-white flex items-center justify-center px-4">
         <div className="max-w-md w-full text-center">
           <div className="w-16 h-16 rounded-2xl bg-emerald-50 flex items-center justify-center mx-auto mb-4">
             <CheckCircle className="w-8 h-8 text-emerald-600" />
@@ -122,7 +122,7 @@ export default function BookTutor() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="flex flex-col h-full bg-gray-50 overflow-hidden">
       {/* Header */}
       <header className="border-b border-gray-100 bg-white sticky top-0">
         <div className="px-6 py-4 max-w-5xl mx-auto">
@@ -152,7 +152,7 @@ export default function BookTutor() {
       </header>
 
       {/* Main Content */}
-      <main className="py-8 px-6 max-w-5xl mx-auto">
+      <main className="flex-1 overflow-y-auto py-8 px-6 max-w-5xl mx-auto w-full">
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Student Info */}
           <div className="bg-white rounded-xl border border-gray-200 p-6">

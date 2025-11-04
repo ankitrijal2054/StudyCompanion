@@ -93,7 +93,7 @@ export default function Chat() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-white">
+    <div className="flex flex-col h-full bg-white">
       {/* Header */}
       <header className="border-b border-gray-100 bg-white">
         <div className="px-6 py-4 max-w-5xl mx-auto">

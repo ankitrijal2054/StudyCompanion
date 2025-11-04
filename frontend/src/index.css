@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: white;
+  color: #111827;
+  overflow: hidden;
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
@@ -28,11 +41,6 @@ html {
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  background-color: white;
-  color: #111827;
 }
 
 /* Animation classes */
