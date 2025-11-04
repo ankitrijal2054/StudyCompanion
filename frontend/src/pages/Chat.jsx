@@ -148,7 +148,7 @@ export default function Chat() {
               }`}
             >
               <div
-                className={`max-w-2xl rounded-2xl px-5 py-3 ${
+                className={`max-w-2xl rounded-2xl px-5 py-3 text-left ${
                   message.role === "user"
                     ? "bg-indigo-600 text-white"
                     : message.isError

@@ -182,15 +182,28 @@ def detect_handoff_trigger(
     if any(keyword in message_lower for keyword in booking_keywords):
         return True, "I'd be happy to help you book a session with a tutor! Let me connect you."
     
-    # Frustration detection (3+ "confused" or "don't understand" in recent history)
-    if len(history) >= 3:
+    # Immediate frustration detection from current message
+    confusion_keywords = [
+        "confused", "don't understand", "dont understand", "don't get it", "dont get it",
+        "not getting it", "stuck", "lost", "no idea", "have no idea", "i have no idea",
+        "i'm not sure", "im not sure", "i am not sure", "i'm lost", "i feel lost",
+        "i'm clueless", "no clue", "not sure what to do"
+    ]
+    if any(keyword in message_lower for keyword in confusion_keywords):
+        return True, "I hear you're feeling stuck. Let me connect you with a human tutor who can walk through this with you."
+    
+    # Frustration detection (3+ signals in recent history including current message)
+    if len(history) >= 1:
         recent_messages = history[-5:]  # Last 5 messages
         confusion_count = 0
         for msg in recent_messages:
             if msg.get('role') == 'user':
                 content = msg.get('content', '').lower()
-                if any(phrase in content for phrase in ["confused", "don't understand", "don't get it", "not getting it", "stuck"]):
+                if any(phrase in content for phrase in confusion_keywords):
                     confusion_count += 1
+        # Include current message in the count as well
+        if any(keyword in message_lower for keyword in confusion_keywords):
+            confusion_count += 1
         
         if confusion_count >= 3:
             return True, "I notice you've been feeling confused. Let me connect you with a human tutor who can provide more personalized guidance."
