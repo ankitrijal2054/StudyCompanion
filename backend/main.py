@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import os
 from database import init_db
 from api.chat import router as chat_router
+from api.quiz import router as quiz_router
 
 # Load environment variables
 load_dotenv()
@@ -33,6 +34,7 @@ app.add_middleware(
 
 # Include routers
 app.include_router(chat_router)
+app.include_router(quiz_router)
 
 # Health check endpoint
 @app.get("/health")
