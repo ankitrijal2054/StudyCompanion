@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import os
 from database import init_db
+from api.chat import router as chat_router
 
 # Load environment variables
 load_dotenv()
@@ -29,6 +30,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include routers
+app.include_router(chat_router)
 
 # Health check endpoint
 @app.get("/health")
