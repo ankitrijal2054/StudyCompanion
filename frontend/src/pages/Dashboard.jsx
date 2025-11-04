@@ -34,6 +34,14 @@ const Dashboard = () => {
   const [quizHistory, setQuizHistory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  // Track window width for responsive design
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -88,6 +96,13 @@ const Dashboard = () => {
       </div>
     );
   }
+
+  // Calculate responsive chart height
+  const getChartHeight = () => {
+    if (windowWidth < 480) return 250;
+    if (windowWidth < 768) return 280;
+    return 300;
+  };
 
   const chartData =
     quizHistory?.quiz_history
@@ -181,7 +196,7 @@ const Dashboard = () => {
             Quiz Performance
           </h2>
           {chartData.length > 0 ? (
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={getChartHeight()}>
               <LineChart
                 data={chartData}
                 margin={{ top: 5, right: 30, left: 0, bottom: 5 }}
