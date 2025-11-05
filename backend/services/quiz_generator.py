@@ -51,7 +51,13 @@ def calculate_difficulty_level(student_id: str) -> Tuple[str, Dict]:
         if not recent_quizzes:
             return "medium", {"avg_score": 0, "quiz_count": 0}
         
-        avg_score = sum(q.score_percent for q in recent_quizzes) / len(recent_quizzes)
+        # Filter out quizzes that haven't been scored yet (score_percent is None)
+        scored_quizzes = [q for q in recent_quizzes if q.score_percent is not None]
+        
+        if not scored_quizzes:
+            return "medium", {"avg_score": 0, "quiz_count": 0}
+        
+        avg_score = sum(q.score_percent for q in scored_quizzes) / len(scored_quizzes)
         
         if avg_score < 60:
             difficulty = "easy"
@@ -299,8 +305,14 @@ def check_auto_completion(student_id: int, subject: str, db=None) -> Dict:
         if len(recent_quizzes) < 2:
             return {"should_complete": False, "goal_id": None}
         
+        # Filter out quizzes that haven't been scored yet (score_percent is None)
+        scored_quizzes = [q for q in recent_quizzes if q.score_percent is not None]
+        
+        if len(scored_quizzes) < 2:
+            return {"should_complete": False, "goal_id": None}
+        
         # Calculate average score
-        avg_score = sum(q.score_percent for q in recent_quizzes) / len(recent_quizzes)
+        avg_score = sum(q.score_percent for q in scored_quizzes) / len(scored_quizzes)
         
         if avg_score >= 85:
             # Find the goal to complete

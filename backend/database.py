@@ -79,7 +79,7 @@ class QuizResult(Base):
     quiz_id = Column(String, unique=True, index=True)
     subject = Column(String)
     topic = Column(String, nullable=True)
-    score_percent = Column(Float)
+    score_percent = Column(Float, nullable=True, default=None)
     total_questions = Column(Integer, default=0)
     correct_answers = Column(Integer, default=0)
     difficulty = Column(String, default="intermediate")

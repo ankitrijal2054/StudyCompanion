@@ -5,6 +5,7 @@ import os
 from database import init_db
 from api.chat import router as chat_router
 from api.quiz import router as quiz_router
+from api.dashboard import router as dashboard_router
 
 # Load environment variables
 load_dotenv()
@@ -26,6 +27,7 @@ app.add_middleware(
         "http://localhost:5173",
         "http://localhost:3000",
         "http://127.0.0.1:5173",
+        "http://localhost:5175",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -35,6 +37,7 @@ app.add_middleware(
 # Include routers
 app.include_router(chat_router)
 app.include_router(quiz_router)
+app.include_router(dashboard_router)
 
 # Health check endpoint
 @app.get("/health")
