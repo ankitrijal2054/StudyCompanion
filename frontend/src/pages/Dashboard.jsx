@@ -200,7 +200,12 @@ const Dashboard = () => {
           {activeGoals.length > 0 ? (
             <div className="goals-list">
               {activeGoals.map((goal) => (
-                <GoalCard key={goal.goal_id} goal={goal} />
+                <GoalCard
+                  key={goal.goal_id}
+                  goal={goal}
+                  studentId={studentId}
+                  navigate={navigate}
+                />
               ))}
             </div>
           ) : (
@@ -335,7 +340,7 @@ const StatCard = ({ icon, label, value, unit, trend, trendPositive }) => (
 );
 
 // GoalCard Component
-const GoalCard = ({ goal }) => {
+const GoalCard = ({ goal, studentId, navigate }) => {
   const progressPercentage = Math.min(goal.progress_percent, 100);
 
   return (
@@ -368,11 +373,7 @@ const GoalCard = ({ goal }) => {
         <button
           className="continue-button"
           onClick={() =>
-            navigate(
-              `/chat?student_id=${goal.student_id || studentId}&subject=${
-                goal.subject
-              }`
-            )
+            navigate(`/chat?student_id=${studentId}&subject=${goal.subject}`)
           }
         >
           Continue Learning

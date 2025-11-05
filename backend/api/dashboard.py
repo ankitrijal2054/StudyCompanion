@@ -36,7 +36,9 @@ def get_student_stats(student_id: str):
         
         avg_goal_progress = 0
         if active_goals:
-            avg_goal_progress = sum(g.progress_percent for g in active_goals) / len(active_goals)
+            valid_progress = [g.progress_percent for g in active_goals if g.progress_percent is not None]
+            if valid_progress:
+                avg_goal_progress = sum(valid_progress) / len(valid_progress)
         
         # Calculate average quiz score
         quiz_results = db.query(QuizResult).filter(
@@ -45,7 +47,9 @@ def get_student_stats(student_id: str):
         
         avg_quiz_score = 0
         if quiz_results:
-            avg_quiz_score = sum(q.score_percent for q in quiz_results) / len(quiz_results)
+            valid_scores = [q.score_percent for q in quiz_results if q.score_percent is not None]
+            if valid_scores:
+                avg_quiz_score = sum(valid_scores) / len(valid_scores)
         
         # Get last 7 days of sessions for streak
         one_week_ago = datetime.utcnow() - timedelta(days=7)

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { apiCall } from "../services/api";
 import "./Quiz.css";
 
 const Quiz = () => {
   const { quizId, subject } = useParams();
   const navigate = useNavigate();
-  const studentId = localStorage.getItem("studentId");
+  const [searchParams] = useSearchParams();
+  const studentId = searchParams.get("student_id") || "S001";
 
   const [quiz, setQuiz] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -22,6 +23,20 @@ const Quiz = () => {
     const loadQuiz = async () => {
       try {
         setLoading(true);
+
+        // Validate required parameters
+        if (!studentId) {
+          setError("Student ID is required");
+          setLoading(false);
+          return;
+        }
+
+        if (!subject) {
+          setError("Subject is required");
+          setLoading(false);
+          return;
+        }
+
         // In a real app, we'd fetch the quiz from /practice/{quizId}
         // For now, we'll generate a new one
         if (quizId === "new") {
